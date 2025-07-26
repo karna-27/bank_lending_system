@@ -1,5 +1,3 @@
-// Form for creating new loans
-
 import React, { useState } from 'react';
 import { createLoan } from '../api';
 import './shared.css';
