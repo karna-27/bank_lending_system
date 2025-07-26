@@ -1,5 +1,3 @@
-// Main Express application setup
-
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -12,17 +10,15 @@ const PORT = process.env.PORT || 3000;
 const DB_PATH = process.env.DATABASE_PATH || './data/bank.db';
 
 app.use(bodyParser.json());
-app.use(cors()); // Enable CORS for all origins, allowing frontend to connect
+app.use(cors());
 
-app.use('/api/v1', loanRoutes); // Mount API routes
+app.use('/api/v1', loanRoutes); 
 
-// Basic error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: 'Something went wrong on the server!' });
 });
 
-// Initialize DB and start server
 initDb(DB_PATH)
   .then(() => {
     app.listen(PORT, () => {
