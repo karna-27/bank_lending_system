@@ -1,10 +1,8 @@
-// Database connection and table creation for SQLite
-
 const sqlite3 = require('sqlite3').verbose();
 const fs = require('fs');
 const path = require('path');
 
-let db; // Database instance
+let db; 
 
 async function initDb(dbPath) {
     const dbDir = path.dirname(dbPath);
@@ -76,12 +74,10 @@ function handleError(tableName) {
     return (err) => {
         if (err) {
             console.error(`Error creating ${tableName} table:`, err.message);
-            // Don't reject immediately for each table, let serialize finish, but log
         }
     };
 }
 
-// Utility functions for database operations
 function runQuery(sql, params = []) {
     return new Promise((resolve, reject) => {
         db.run(sql, params, function(err) {
