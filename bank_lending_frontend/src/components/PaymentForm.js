@@ -1,5 +1,3 @@
-// Form for recording loan payments
-
 import React, { useState } from 'react';
 import { recordPayment } from '../api';
 import './shared.css';
