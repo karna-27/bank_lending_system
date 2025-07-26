@@ -1,5 +1,3 @@
-// Component to display loan ledger and transaction history
-
 import React, { useState } from 'react';
 import { getLoanLedger } from '../api';
 import './shared.css';
