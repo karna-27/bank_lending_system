@@ -1,9 +1,6 @@
-// Data models and business logic for bank operations
-
 const { runQuery, getQuery, allQuery } = require('./database');
 const { v4: uuidv4 } = require('uuid');
 
-// Rounds a number to two decimal places for consistent monetary representation.
 function roundToTwoDecimalPlaces(num) {
     return parseFloat(num.toFixed(2));
 }
@@ -25,7 +22,7 @@ class Loan {
         const totalAmount = principalAmount + totalInterest;
         const totalMonths = loanPeriodYears * 12;
 
-        if (totalMonths <= 0) { // Loan period must be positive
+        if (totalMonths <= 0) { 
             throw new Error("Loan period cannot be zero or negative.");
         }
 
