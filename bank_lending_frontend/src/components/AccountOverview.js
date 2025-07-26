@@ -1,5 +1,3 @@
-// Component to display an overview of all loans for a customer
-
 import React, { useState } from 'react';
 import { getAccountOverview } from '../api';
 import './shared.css';
