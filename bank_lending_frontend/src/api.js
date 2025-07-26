@@ -1,5 +1,3 @@
-// Centralized API call utility for the frontend
-
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 async function callApi(endpoint, method = 'GET', data = null) {
