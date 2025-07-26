@@ -1,5 +1,3 @@
-// Main application component with navigation and routing
-
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
 import LendForm from './components/LendForm';
