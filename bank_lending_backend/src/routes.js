@@ -1,21 +1,15 @@
-// API routes for the bank lending system
-
 const express = require('express');
 const { Customer, Loan, Payment, roundToTwoDecimalPlaces } = require('./models');
 
 const router = express.Router();
-
-// Calculates the number of EMIs left, rounding up.
 function calculateEmisLeft(balance, monthlyEmi) {
     if (monthlyEmi <= 0 || balance <= 0) return 0;
     return Math.ceil(balance / monthlyEmi);
 }
 
-// POST /api/v1/loans - Create a new loan
 router.post('/loans', async (req, res) => {
     const { customer_id, loan_amount, loan_period_years, interest_rate_yearly } = req.body;
 
-    // Basic input validation
     if (!customer_id || typeof loan_amount !== 'number' || loan_amount <= 0 ||
         typeof loan_period_years !== 'number' || loan_period_years <= 0 ||
         typeof interest_rate_yearly !== 'number' || interest_rate_yearly < 0) {
@@ -23,7 +17,6 @@ router.post('/loans', async (req, res) => {
     }
 
     try {
-        // Find or create customer
         let customer = await Customer.findById(customer_id);
         if (!customer) {
             customer = await Customer.create(customer_id, `Customer ${customer_id}`);
@@ -37,12 +30,10 @@ router.post('/loans', async (req, res) => {
     }
 });
 
-// POST /api/v1/loans/{loan_id}/payments - Record a payment
 router.post('/loans/:loan_id/payments', async (req, res) => {
     const { loan_id } = req.params;
     const { amount, payment_type } = req.body;
 
-    // Input validation
     if (typeof amount !== 'number' || amount <= 0 || (payment_type !== 'EMI' && payment_type !== 'LUMP_SUM')) {
         return res.status(400).json({ error: "Invalid payment data provided. Amount must be positive, type 'EMI' or 'LUMP_SUM'." });
     }
@@ -85,7 +76,6 @@ router.post('/loans/:loan_id/payments', async (req, res) => {
     }
 });
 
-// GET /api/v1/loans/{loan_id}/ledger - View loan details and history
 router.get('/loans/:loan_id/ledger', async (req, res) => {
     const { loan_id } = req.params;
 
@@ -121,7 +111,6 @@ router.get('/loans/:loan_id/ledger', async (req, res) => {
     }
 });
 
-// GET /api/v1/customers/{customer_id}/overview - View all loans for a customer
 router.get('/customers/:customer_id/overview', async (req, res) => {
     const { customer_id } = req.params;
 
